@@ -1,13 +1,35 @@
-import { useState } from "react";
-import projects from "./AllProjects";
+import { useState , useEffect } from "react";
 import "./Projects.css";
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://raw.githubusercontent.com/Amine-Triki/projects-data/main/projects.json')
+      .then(res => res.json())
+      .then(data => {
+        setProjects(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error loading projects:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const switchCategories = (category) => {
     setActiveCategory(category);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <main>
