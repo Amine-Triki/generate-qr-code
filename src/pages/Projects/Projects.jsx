@@ -1,5 +1,4 @@
-import { useState , useEffect } from "react";
-import "./Projects.css";
+import { useState, useEffect } from "react";
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -7,13 +6,15 @@ const Projects = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://raw.githubusercontent.com/Amine-Triki/projects-data/main/projects.json')
-      .then(res => res.json())
-      .then(data => {
+    fetch(
+      "https://raw.githubusercontent.com/Amine-Triki/projects-data/main/projects.json"
+    )
+      .then((res) => res.json())
+      .then((data) => {
         setProjects(data);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error loading projects:", error);
         setLoading(false);
       });
@@ -39,16 +40,22 @@ const Projects = () => {
             <h2 className="text-4xl my-3">My Projects</h2>
             <p>What I build</p>
           </div>
-          <ul className="switcher my-10 - bg-amber-500 text-white flex flex-col py-3 justify-around px-0 flex-wrap md:flex-row">
-            {["all", "JavaScript", "Wordpress", "React"].map((category) => (
-              <li
-                key={category}
-                className={activeCategory === category ? "active" : ""}
-                onClick={() => switchCategories(category)}
-              >
-                {category === "all" ? "All works" : category}
-              </li>
-            ))}
+          <ul className="list-none my-10 gap-4 bg-amber-500 text-white flex flex-col p-3 justify-around  flex-wrap md:flex-row">
+            {["all", "JavaScript", "Wordpress", "React", "NextJs", "vue"].map(
+              (category) => (
+                <li
+                  key={category}
+                  className={`cursor-pointer hover:text-blue-500 ${
+                    activeCategory === category
+                      ? "text-violet-500 font-semibold"
+                      : ""
+                  }`}
+                  onClick={() => switchCategories(category)}
+                >
+                  {category === "all" ? "All works" : category}
+                </li>
+              )
+            )}
           </ul>
           <div className="gallery text-start">
             <div className="gap-5 flex justify-center flex-wrap items-stretch">
