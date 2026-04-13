@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-
+import { NotFound } from "./pages/NotFound";
 
 import './App.css';
 import { Header, Footer } from './components/index';
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/projects", element: <Projects /> },
       { path: "/privacy", element: <Privacy /> },
       { path: "/terms", element: <Terms /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
